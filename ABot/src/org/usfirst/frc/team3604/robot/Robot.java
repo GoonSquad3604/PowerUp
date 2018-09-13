@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+//This is a test
 package org.usfirst.frc.team3604.robot;
 
 import org.usfirst.frc.team3604.auton.*;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.GenericHID.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.*;  
 
 public class Robot extends IterativeRobot {
 	
