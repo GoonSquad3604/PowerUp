@@ -5,10 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-//ACCEPT THIS RICKY
-//Please
-//UUHDfiuhsdo
-//I can add comments too ;)
 package org.usfirst.frc.team3604.robot;
 
 import org.usfirst.frc.team3604.auton.*;
@@ -20,7 +16,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.*;
-//tony's comment
+//Not tony's comment 2
 public class Robot extends IterativeRobot {
 	
 	//Drivetrain
