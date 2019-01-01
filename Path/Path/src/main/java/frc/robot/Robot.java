@@ -13,24 +13,24 @@ import frc.robot.Constants;
 
 public class Robot extends TimedRobot {
     
-	//Drivetrain
-	public static WPI_TalonSRX leftMain;
-	public static WPI_TalonSRX rightMain;
-	public static WPI_TalonSRX leftSlave;
+    //Drivetrain
+    public static WPI_TalonSRX leftMain;
+    public static WPI_TalonSRX rightMain;
+    public static WPI_TalonSRX leftSlave;
     public static WPI_TalonSRX rightSlave;
     
-	@Override
-	public void robotInit() {
+    @Override
+    public void robotInit() {
 
-		//Drivetrain
-		leftMain = new WPI_TalonSRX(15);
-		rightMain = new WPI_TalonSRX(1);
-		leftSlave = new WPI_TalonSRX(14);
-		rightSlave = new WPI_TalonSRX(2);
-		leftSlave.follow(leftMain);
+        //Drivetrain
+        leftMain = new WPI_TalonSRX(15);
+        rightMain = new WPI_TalonSRX(1);
+        leftSlave = new WPI_TalonSRX(14);
+        rightSlave = new WPI_TalonSRX(2);
+        leftSlave.follow(leftMain);
         rightSlave.follow(rightMain);
         
-		leftMain.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+        leftMain.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
         rightMain.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
 
         leftMain.config_kP(0, Constants.kP, Constants.kTimeoutMs);
@@ -40,6 +40,6 @@ public class Robot extends TimedRobot {
 
     
 
-	}
+    }
 
 }
