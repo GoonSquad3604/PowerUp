@@ -9,7 +9,7 @@ public class ScaleR {
 		if(Auton.getStage() == -1) {
 			Auton.resetThings();
 		}
-		else if(Auton.getStage() == 0 && Robot.raiseArmSlow(5000, false) && Robot.driveAutonSimple(197, 197)) {
+		else if(Auton.getStage() == 0 && Robot.raiseArmSlow(5000, false) && Robot.driveAutonSimple(205, 205)) {
 			Auton.resetThings();
 		}
 		else if(Auton.getStage() == 1 && Robot.raiseArm(Robot.SCALEHEIGHT, false) && Robot.driveAutonSimple(38, 63)) {
@@ -21,7 +21,7 @@ public class ScaleR {
 		else if(Auton.getStage() == 3 && Robot.shootCube(0.4)) {
 			Auton.resetThings();
 		}
-		else if(Auton.getStage() == 4 && Robot.shortDriveSlow(-10)) {
+		else if(Auton.getStage() == 4 && Robot.shortDriveSlow(-7)) {
 			Auton.resetThings();
 		}
 		else if(Auton.getStage() == 5 && Robot.lowerArm(Robot.SWITCHHEIGHT, true)) {

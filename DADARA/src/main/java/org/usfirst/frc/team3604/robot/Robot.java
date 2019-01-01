@@ -195,6 +195,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	
+	
 	@Override
 	public void robotPeriodic() {
 		
@@ -216,7 +217,8 @@ public class Robot extends IterativeRobot {
 		ty = table.getEntry("ty").getDouble(0);
 		tx = table.getEntry("tx").getDouble(0);		
 		//SmartDashboard.putNumber("Current", intake.getOutputCurrent());
-		System.out.println("Time: " + testTime.get());
+		//System.out.println(testTime.get());
+		
 		
 	}
 
@@ -280,43 +282,43 @@ public class Robot extends IterativeRobot {
 		double dVal = 0.0;
 		
 		//Motion Magic Stuff Left
-		leftMain.configOpenloopRamp(0, 0);
-		leftMain.selectProfileSlot(0, 0);
-		leftMain.configMotionCruiseVelocity(950, 0);
-		leftMain.configMotionAcceleration(950, 0);
-		leftMain.selectProfileSlot(0, 0);
-		leftMain.config_kF(0, fVal, 0);
-		leftMain.config_kP(0, pVal, 0);
-		leftMain.config_kI(0, iVal, 0);
-		leftMain.config_kD(0, dVal, 0);
-		leftMain.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		leftMain.setSensorPhase(false);
-		leftMain.setInverted(false);
-		leftMain.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
-		leftMain.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
-		leftMain.configNominalOutputForward(0, 0);
-		leftMain.configNominalOutputReverse(0, 0);
-		leftMain.configPeakOutputForward(1, 0);
-		leftMain.configPeakOutputReverse(-1, 0);
+		// leftMain.configOpenloopRamp(0, 0);
+		// leftMain.selectProfileSlot(0, 0);
+		// leftMain.configMotionCruiseVelocity(950, 0);
+		// leftMain.configMotionAcceleration(950, 0);
+		// leftMain.selectProfileSlot(0, 0);
+		// leftMain.config_kF(0, fVal, 0);
+		// leftMain.config_kP(0, pVal, 0);
+		// leftMain.config_kI(0, iVal, 0);
+		// leftMain.config_kD(0, dVal, 0);
+		// leftMain.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		// leftMain.setSensorPhase(false);
+		// leftMain.setInverted(false);
+		// leftMain.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
+		// leftMain.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
+		// leftMain.configNominalOutputForward(0, 0);
+		// leftMain.configNominalOutputReverse(0, 0);
+		// leftMain.configPeakOutputForward(1, 0);
+		// leftMain.configPeakOutputReverse(-1, 0);
 		
-		//Motion Magic Stuff Right
-		rightMain.configOpenloopRamp(0, 0);
-		rightMain.configMotionCruiseVelocity(950, 0);
-		rightMain.configMotionAcceleration(950, 0);
-		rightMain.selectProfileSlot(0, 0);
-		rightMain.config_kF(0, fVal, 0);
-		rightMain.config_kP(0, pVal, 0);
-		rightMain.config_kI(0, iVal, 0);
-		rightMain.config_kD(0, dVal, 0);
-		rightMain.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);//
-		rightMain.setSensorPhase(false);
-		rightMain.setInverted(false);
-		rightMain.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
-		rightMain.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
-		rightMain.configNominalOutputForward(0, 0);
-		rightMain.configNominalOutputReverse(0, 0);
-		rightMain.configPeakOutputForward(1, 0);
-		rightMain.configPeakOutputReverse(-1, 0);
+		// //Motion Magic Stuff Right
+		// rightMain.configOpenloopRamp(0, 0);
+		// rightMain.configMotionCruiseVelocity(950, 0);
+		// rightMain.configMotionAcceleration(950, 0);
+		// rightMain.selectProfileSlot(0, 0);
+		// rightMain.config_kF(0, fVal, 0);
+		// rightMain.config_kP(0, pVal, 0);
+		// rightMain.config_kI(0, iVal, 0);
+		// rightMain.config_kD(0, dVal, 0);
+		// rightMain.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);//
+		// rightMain.setSensorPhase(false);
+		// rightMain.setInverted(false);
+		// rightMain.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
+		// rightMain.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
+		// rightMain.configNominalOutputForward(0, 0);
+		// rightMain.configNominalOutputReverse(0, 0);
+		// rightMain.configPeakOutputForward(1, 0);
+		// rightMain.configPeakOutputReverse(-1, 0);
 		
 		//Reset Drive Train Encoder
 		leftMain.setSelectedSensorPosition(0, 0, 0);
@@ -356,7 +358,7 @@ public class Robot extends IterativeRobot {
 				break;
 			case 12: auto = new A_ScalePriorityStayR();
 				break;
-			case 13: auto = new A_SwitchL();
+			case 13: auto = new A_MoveGoonGetOutTheWo();
 				break;
 			case 14: auto = new A_ScaleOnlyL();
 				break;
@@ -375,7 +377,7 @@ public class Robot extends IterativeRobot {
 		if(!DriverStation.getInstance().getGameSpecificMessage().isEmpty()) {
 			switchValue = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
 			scaleValue = DriverStation.getInstance().getGameSpecificMessage().charAt(1);
-			auto.run();
+			//auto.run();
 		}
 	
 		//Use to tune PID
@@ -390,7 +392,7 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 	
 		//Initalize Drive Train
-		driveTrain = null;
+		//driveTrain = null;
 		driveTrain = new DifferentialDrive(leftMain,rightMain);
 		
 		//Limelight
@@ -398,8 +400,7 @@ public class Robot extends IterativeRobot {
 		
 		elevator.setSelectedSensorPosition(0, 0, 0);
 		
-		testTime.reset();
-		testTime.start();
+		
 	}
 	
 	@Override
@@ -442,7 +443,7 @@ public class Robot extends IterativeRobot {
 		//Climber
 		if(operateStick.getBackButton())
 		{
-			climber.set(1);
+			//climber.set(1);
 		}
 		else
 		{
@@ -800,7 +801,7 @@ public class Robot extends IterativeRobot {
 		boolean finish;
 		
 		final double RANGE = 500.0;
-		System.out.println(RANGE);
+		//System.out.println(RANGE);
 		
 		if(elevatorPos < height - RANGE) {
 			elevator.set(1);
@@ -997,7 +998,7 @@ public class Robot extends IterativeRobot {
 			test = true;
 		}
 		
-		System.out.println(test);
+		//System.out.println(test);
 		
 		if(intake.getOutputCurrent() >= CONSTANTCURRENT || intakeLeft.getOutputCurrent() >= CONSTANTCURRENT) {
 			if(pickUpTime.get() > 0.3) {

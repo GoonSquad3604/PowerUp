@@ -195,6 +195,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	
+	
 	@Override
 	public void robotPeriodic() {
 		
@@ -216,7 +217,8 @@ public class Robot extends IterativeRobot {
 		ty = table.getEntry("ty").getDouble(0);
 		tx = table.getEntry("tx").getDouble(0);		
 		//SmartDashboard.putNumber("Current", intake.getOutputCurrent());
-		System.out.println("Time: " + testTime.get());
+		System.out.println(testTime.get());
+		
 		
 	}
 
@@ -356,7 +358,7 @@ public class Robot extends IterativeRobot {
 				break;
 			case 12: auto = new A_ScalePriorityStayR();
 				break;
-			case 13: auto = new A_SwitchL();
+			case 13: auto = new A_MoveGoonGetOutTheWo();
 				break;
 			case 14: auto = new A_ScaleOnlyL();
 				break;
@@ -398,8 +400,7 @@ public class Robot extends IterativeRobot {
 		
 		elevator.setSelectedSensorPosition(0, 0, 0);
 		
-		testTime.reset();
-		testTime.start();
+		
 	}
 	
 	@Override
