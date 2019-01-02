@@ -10,6 +10,9 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.Constants;
+import jaci.pathfinder.*;
+import jaci.pathfinder.followers.EncoderFollower;
+import jaci.pathfinder.modifiers.TankModifier;
 
 public class Robot extends TimedRobot {
     
@@ -38,7 +41,28 @@ public class Robot extends TimedRobot {
         leftMain.config_kD(0, Constants.kD, Constants.kTimeoutMs);
         leftMain.config_kF(0, Constants.kF, Constants.kTimeoutMs);
 
-    
+        
+
+
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.kDt, Constants.kVelocity, Constants.kAcceleration, Constants.kJerk);
+        Waypoint[] points = new Waypoint[] {
+                new Waypoint(-4, -1, Pathfinder.d2r(-45)),
+                new Waypoint(-2, -2, 0),
+                new Waypoint(0, 0, 0)
+        };
+
+        Trajectory trajectory = Pathfinder.generate(points, config);
+
+        // Wheelbase Width = 0.5m
+        TankModifier modifier = new TankModifier(trajectory).modify(0.5);
+
+        // Do something with the new Trajectories...
+        Trajectory left = modifier.getLeftTrajectory();
+        Trajectory right = modifier.getRightTrajectory();
+
+        EncoderFollower leftFollow = new EncoderFollower(left);
+        leftFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
+        leftMain.set(leftFollow.calculate(leftMain.getSelectedSensorPosition(0)));
 
     }
 
