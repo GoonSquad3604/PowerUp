@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.Constants;
@@ -22,6 +23,19 @@ public class Robot extends TimedRobot {
     public static WPI_TalonSRX leftSlave;
     public static WPI_TalonSRX rightSlave;
     
+    EncoderFollower leftFollow;
+    EncoderFollower rightFollow;
+
+    Trajectory left, right;
+
+    Trajectory.Config config;
+
+    Waypoint[] points;
+
+    Trajectory trajectory;
+
+    TankModifier modifier;
+
     @Override
     public void robotInit() {
 
@@ -41,28 +55,62 @@ public class Robot extends TimedRobot {
         leftMain.config_kD(0, Constants.kD, Constants.kTimeoutMs);
         leftMain.config_kF(0, Constants.kF, Constants.kTimeoutMs);
 
+        rightMain.config_kP(0, Constants.kP, Constants.kTimeoutMs);
+        rightMain.config_kI(0, Constants.kI, Constants.kTimeoutMs);
+        rightMain.config_kD(0, Constants.kD, Constants.kTimeoutMs);
+        rightMain.config_kF(0, Constants.kF, Constants.kTimeoutMs);
+
         
 
 
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.kDt, Constants.kVelocity, Constants.kAcceleration, Constants.kJerk);
-        Waypoint[] points = new Waypoint[] {
-                new Waypoint(-4, -1, Pathfinder.d2r(-45)),
-                new Waypoint(-2, -2, 0),
-                new Waypoint(0, 0, 0)
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.kDt, Constants.kVelocity, Constants.kAcceleration, Constants.kJerk);
+        // points = new Waypoint[] {
+        //         new Waypoint(-4, -1, Pathfinder.d2r(-45)),
+        //         new Waypoint(-2, -2, 0),
+        //         new Waypoint(0, 0, 0)
+        // };
+
+        points = new Waypoint[] {
+            new Waypoint(2, 1, 0),
+            new Waypoint(0, 0, 0)
         };
 
-        Trajectory trajectory = Pathfinder.generate(points, config);
+        trajectory = Pathfinder.generate(points, config);
+        
 
         // Wheelbase Width = 0.5m
-        TankModifier modifier = new TankModifier(trajectory).modify(0.5);
+        modifier = new TankModifier(trajectory).modify(0.5588);
 
         // Do something with the new Trajectories...
-        Trajectory left = modifier.getLeftTrajectory();
-        Trajectory right = modifier.getRightTrajectory();
+        left = modifier.getLeftTrajectory();
+        right = modifier.getRightTrajectory();
 
-        EncoderFollower leftFollow = new EncoderFollower(left);
+        leftFollow = new EncoderFollower(left);
         leftFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        leftMain.set(leftFollow.calculate(leftMain.getSelectedSensorPosition(0)));
+        leftFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, 1/Constants.kVelocity, 0);
+
+        rightFollow = new EncoderFollower(right);
+        rightFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
+        rightFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, 1/Constants.kVelocity, 0);
+       
+
+    }
+
+
+    @Override
+    public void autonomousInit() {
+        // leftMain.clearMotionProfileTrajectories();
+        // leftMain.configMotionProfileTrajectoryPeriod(50, Constants.kTimeoutMs);
+        leftMain.setSelectedSensorPosition(0, 0, 10);
+        rightMain.setSelectedSensorPosition(0, 0, 10);
+
+    }
+
+    @Override
+    public void autonomousPeriodic() {
+        leftMain.set(ControlMode.PercentOutput, leftFollow.calculate(Math.abs(leftMain.getSelectedSensorPosition(0))));
+        rightMain.set(ControlMode.PercentOutput, -rightFollow.calculate(Math.abs(rightMain.getSelectedSensorPosition(0))));
+        //System.out.println(leftFollow.calculate(leftMain.getSelectedSensorPosition(0)));
 
     }
 
