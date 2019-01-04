@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
 
         trajectory = Pathfinder.generate(points, config);
         
-        modifier = new TankModifier(trajectory).modify(0.5588);
+        modifier = new TankModifier(trajectory).modify(Constants.robotWidth);
 
         left = modifier.getLeftTrajectory();
         right = modifier.getRightTrajectory();

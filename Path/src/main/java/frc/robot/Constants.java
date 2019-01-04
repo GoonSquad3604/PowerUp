@@ -17,6 +17,6 @@ public class Constants{
     static final double kVelocityRatio = 1/kVelocity;
     static final double kDt = 0.05;
     static final double kJerk = 0.7;// m/s/s/s
-
+    static final double robotWidth = 0.5588;
 
 }
