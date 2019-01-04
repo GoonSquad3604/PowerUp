@@ -60,9 +60,6 @@ public class Robot extends TimedRobot {
         rightMain.config_kD(0, Constants.kD, Constants.kTimeoutMs);
         rightMain.config_kF(0, Constants.kF, Constants.kTimeoutMs);
 
-        
-
-
         config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.kDt, Constants.kVelocity, Constants.kAcceleration, Constants.kJerk);
 
         points = new Waypoint[] {
@@ -72,11 +69,8 @@ public class Robot extends TimedRobot {
 
         trajectory = Pathfinder.generate(points, config);
         
-
-        // Wheelbase Width = 0.5m
         modifier = new TankModifier(trajectory).modify(0.5588);
 
-        // Do something with the new Trajectories...
         left = modifier.getLeftTrajectory();
         right = modifier.getRightTrajectory();
 
@@ -87,7 +81,6 @@ public class Robot extends TimedRobot {
         rightFollow = new EncoderFollower(right);
         rightFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
         rightFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
-       
 
     }
 
