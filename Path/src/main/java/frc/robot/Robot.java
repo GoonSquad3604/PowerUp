@@ -64,15 +64,10 @@ public class Robot extends TimedRobot {
 
 
         config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.kDt, Constants.kVelocity, Constants.kAcceleration, Constants.kJerk);
-        // points = new Waypoint[] {
-        //         new Waypoint(-4, -1, Pathfinder.d2r(-45)),
-        //         new Waypoint(-2, -2, 0),
-        //         new Waypoint(0, 0, 0)
-        // };
 
         points = new Waypoint[] {
-            new Waypoint(2, 1, 0),
-            new Waypoint(0, 0, 0)
+            new Waypoint(0, 0, 0),
+            new Waypoint(2, 1, Pathfinder.d2r(45))
         };
 
         trajectory = Pathfinder.generate(points, config);
@@ -87,11 +82,11 @@ public class Robot extends TimedRobot {
 
         leftFollow = new EncoderFollower(left);
         leftFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        leftFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, 1/Constants.kVelocity, 0);
+        leftFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
 
         rightFollow = new EncoderFollower(right);
         rightFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        rightFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, 1/Constants.kVelocity, 0);
+        rightFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
        
 
     }
@@ -99,19 +94,18 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        // leftMain.clearMotionProfileTrajectories();
-        // leftMain.configMotionProfileTrajectoryPeriod(50, Constants.kTimeoutMs);
-        leftMain.setSelectedSensorPosition(0, 0, 10);
-        rightMain.setSelectedSensorPosition(0, 0, 10);
-
+        leftMain.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+        rightMain.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
     }
 
     @Override
     public void autonomousPeriodic() {
-        leftMain.set(ControlMode.PercentOutput, leftFollow.calculate(Math.abs(leftMain.getSelectedSensorPosition(0))));
-        rightMain.set(ControlMode.PercentOutput, -rightFollow.calculate(Math.abs(rightMain.getSelectedSensorPosition(0))));
-        //System.out.println(leftFollow.calculate(leftMain.getSelectedSensorPosition(0)));
-
+        leftMain.set(ControlMode.PercentOutput, leftFollow.calculate(leftMain.getSelectedSensorPosition(0)));
+        rightMain.set(ControlMode.PercentOutput, -rightFollow.calculate(-(rightMain.getSelectedSensorPosition(0))));
+        System.out.println(leftFollow.isFinished());
     }
+    
+
+
 
 }
